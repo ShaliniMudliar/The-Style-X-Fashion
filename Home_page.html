@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SxF Home Page</title>
+    <link rel="stylesheet" href="home_Page_style.css">
+    <script src="//unpkg.com/alpinejs" defer></script>
+</head>
+
+<body class="m-0 p-0">
+    <!-- first navBar -->
+    <header class="bg-sky-950 py-4 px-9">
+        <nav class="flex  items-center justify-between">
+            <div class="flex  items-center gap-3">
+                <img src="https://as2.ftcdn.net/v2/jpg/06/04/69/71/1000_F_604697189_fUkbX1sVc3dGxGM0TnlmJF7upWkE8cbY.jpg"
+                    class="w-[50px] rounded-full" srcset="">
+                <samp class="text-white text-xs">
+                    <div>The Style</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;X </div>
+                    <div>&nbsp;Fashion</div>
+                </samp>
+            </div>
+            <div class="flex  items-center gap-5">
+                <div >
+                    <a href="login_page.html" class="flex  items-center gap-2 text-white hover:underline">
+                        <img src="img/icons8-person-64.png" alt="" srcset=""
+                            class="bg-white opacity-90 hover:opacity-100 hover:scale-95 rounded-full w-10 "> 
+                            <span>Login</span>
+                    </a>
+                </div>
+                <div>
+                    <img src="img/icons8-shopping-bag-50.png" alt="" srcset=""
+                        class="bg-white opacity-90 hover:opacity-100 hover:scale-95 rounded-full w-10 cursor-pointer">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- second navBar -->
+    <section>
+        <div x-data="{open:false ,toggle(){this.open=!this.open}}" class="relative">
+            <samp class=" flex items-center justify-center sm:gap-20 gap-6 py-3 px-9 text-sky-950 bg-red-100">
+                <a href="#" class="flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18px" height="18px">
+                        <path
+                            d="M 12 2.0996094 L 1 12 L 4 12 L 4 21 L 11 21 L 11 15 L 13 15 L 13 21 L 20 21 L 20 12 L 23 12 L 12 2.0996094 z M 12 4.7910156 L 18 10.191406 L 18 11 L 18 19 L 15 19 L 15 13 L 9 13 L 9 19 L 6 19 L 6 10.191406 L 12 4.7910156 z" />
+                    </svg>
+                    Home</a>
+                    <div @click="toggle()">
+                    <a href="#" class="flex items-center gap-2">Explore
+                        <img  src="img/icons8-expand-arrow-30.png"  :class="{'rotate-180':open}" class="w-5" srcset="">
+                    </a>
+
+                    </div>
+                
+                <a href="#" class="flex items-center gap-2  px-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="20px" height="20px">
+                        <path
+                            d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z" />
+                    </svg>
+                    <input type="text" placeholder="Search" class="w-96 border-2 rounded-lg px-3 hidden sm:block">
+                </a>
+                <a href="#"><img src="img/icons8-heart-24.png" alt="" srcset="" class="rounded-full w-7"></a>
+
+            </samp>
+            <ul x-show="open"  @click.outside="open=false" class="absolute left-[30%] z-10 bg-white p-3 rounded-xl">
+                <li class="hover:underline hover:scale-95">New Arrivals</li>
+                <li class="hover:underline hover:scale-95">Tranding</li>
+                <li class="hover:underline hover:scale-95">Top Rated</li>
+            </ul>
+        </div>
+    </section>
+    <!-- image slider -->
+    
+    <div x-data="{
+            images:['img/New_Arrivals.jpg' , 'img/SPECIAL_OFFER.jpg' , 'img/BRIDAL.jpg' , 'img/NEW_COLLECTION.jpg' , 'img/New_shoes.jpg' , 'img/EXCLUSIVE.jpg' , 'img/New_Edition.jpg'],
+            activeImageIndex:0,
+            delay:5000,
+            resetDelay(){
+                this.delay = 5000
+            },
+            prev(){
+                if(this.activeImageIndex === 0){
+                    this.activeImageIndex = this.images.length - 1
+                }else{
+                    this.activeImageIndex -= 1
+                }
+            },
+            next(){
+                if(this.activeImageIndex === this.images.length - 1){
+                    this.activeImageIndex = 0
+                }else{
+                    this.activeImageIndex += 1
+                }
+            },  
+        }"
+        x-init="() => {
+            $watch('activeImageIndex', () => resetDelay())
+
+            setInterval(() => {
+                delay -= 10
+
+                if(delay === 0){
+                    next()
+                }
+            },10)
+        }">
+     
+
+
+<div class="relative">
+ 
+      
+        <template x-for="(img , index) in images">
+            <div :class="{'absolute inset-0 opacity-0': index !== activeImageIndex}" x-transition >
+                <button class="absolute left-3 top-[43%] rounded-full border-gray-200 bg-white" @click="prev()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="sm:w-14 sm:h-14 w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                      </svg>
+                </button>
+                <img :src="img" class="w-full rounded-2xl" x-transition alt="" >
+
+                <div class="absolute bottom-3 left-[45%]  flex items-center gap-x-1.5 justify-center ">
+                    <template x-for="(img , index) in images">
+                    <button class="rounded-full md:w-3 md:h-3 w-1 h-1" :class="index === activeImageIndex ? 'bg-sky-950 md:w-6 w-3' : 'bg-gray-600'" @click="activeImageIndex = index"></button>
+                </template>
+                </div>
+                <button class="absolute right-3 top-[43%] rounded-full border-gray-200 bg-white " @click="next()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="sm:w-14 sm:h-14 w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                      </svg>
+                      
+                </button>
+            </div>
+
+        </template>
+
+    </div>
+    </div>
+
+   <!-- Trendings -->
+
+   <div class="flex justify-center items-center md:m-7 m-4 md:font-bold font-bold md:text-5xl uppercase underline text-red-400">
+    <h1>Trendings</h1>
+   </div>
+    <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 mx-[5%] size-4/5 w-[90%] gap-12 ">
+        <div >
+            <img src="img/tr1.jpeg" class="rounded-2xl hover:scale-95" alt="">
+            <h3 class="font-bold pt-2">DENNISLINGO PREMIUM ATTIRE</h3>
+            <p class="font-semibold">Striped Slim Fit Shirt</p>
+            <h1 class="font-bold">&#x20b9 675 <span class="font-normal"> MRP </span><span class="font-normal gap-1 line-through">&#x20b9 2,499</span> <span class="font-bold text-red-400">73% off</span></h1>
+        </div>
+        <div>
+            <img src="img/tr2.jpeg" class="rounded-2xl hover:scale-95 " alt="">
+            <h3 class="font-bold pt-2">JUMP CUTS</h3>
+            <p class="font-semibold">Typogrsphic Print Loose Fit T-Shirt</p>
+            <h1 class="font-bold">&#x20b9 540 <span class="font-normal"> MRP </span><span class="font-normal gap-1 line-through">&#x20b9 1,999</span> <span class="font-bold text-red-400">73% off</span></h1>
+        </div>
+        <div>
+            <img src="img/tr3.jpeg" class="rounded-2xl  hover:scale-95 " alt="">
+            <h3 class="font-bold uppercase pt-2">Fig</h3>
+            <p class="font-semibold">Women polka-Dot Print Relaxed Fit Top with Camisole</p>
+            <h1 class="font-bold">&#x20b9 799</h1>
+        </div>
+        <div>
+            <img src="img/tr4.jpeg" class="rounded-2xl hover:scale-95 " alt="">
+            <h3 class="font-bold uppercase pt-2">Silverfly</h3>
+            <p class="font-semibold">Women Relaxed Fit Pants With Elasticated Waist</p>
+            <h1 class="font-bold">&#x20b9 320 <span class="font-normal"> MRP </span><span class="font-normal gap-1 line-through">&#x20b9 1,999</span> <span class="font-bold text-red-400">84% off</span></h1>
+        </div>
+        <div >
+            <img src="img/tr5.jpeg" class="rounded-2xl  hover:scale-95 " alt="">
+            <h3 class="font-bold uppercase pt-2">Lilpicks</h3>
+            <p class="font-semibold">Typographic Print T-Shirt & Shorts Set</p>
+            <h1 class="font-bold">&#x20b9 589 <span class="font-normal"> MRP </span><span class="font-normal gap-1 line-through">&#x20b9 1,899</span> <span class="font-bold text-red-400">69% off</span></h1>
+        </div>
+        <div>
+            <img src="img/tr6.jpeg" class="rounded-2xl hover:scale-95 " alt="">
+            <h3 class="font-bold uppercase pt-2">Shoetopia</h3>
+            <p class="font-semibold">Toe-Ring Flat Sandals with Buckle Fastening</p>
+            <h1 class="font-bold">&#x20b9 690 <span class="font-normal"> MRP </span><span class="font-normal gap-1 line-through">&#x20b9 1,499</span> <span class="font-bold text-red-400">54% off</span></h1>
+        </div>
+        <div>
+            <img src="img/tr7.jpeg" class="rounded-2xl  hover:scale-95 " alt="">
+            <h3 class="font-bold uppercase pt-2">netplay</h3>
+            <p class="font-semibold">Flat-Front Tapered Fit Trousers</p>
+            <h1 class="font-bold">&#x20b9 912 <span class="font-normal"> MRP </span><span class="font-normal gap-1 line-through">&#x20b9 1,899</span> <span class="font-bold text-red-400">52% off</span></h1>
+        </div>
+        <div>
+            <img src="img/tr8.jpeg" class="rounded-2xl hover:scale-95 " alt="">
+            <h3 class="font-bold pt-2">ATOM</h3>
+            <p class="font-semibold">Casual Shoes with Mesh upper</p>
+            <h1 class="font-bold">&#x20b9 1,305 <span class="font-normal"> MRP </span><span class="font-normal gap-1 line-through">&#x20b9 2,895 </span> <span class="font-bold text-red-400"> 55% off</span></h1>
+        </div>
+        <div>
+            <img src="img/tr9.jpeg" class="rounded-2xl hover:scale-95 " alt="">
+            <h3 class="font-bold uppercase pt-2">french connection</h3>
+            <p class="font-semibold">Women Water-Resistant Analogue Watch - FCN00063D</p>
+            <h1 class="font-bold">&#x20b9 2,780 <span class="font-normal"> MRP </span><span class="font-normal gap-1 line-through">&#x20b9 6,950</span> <span class="font-bold text-red-400">60% off</span></h1>
+        </div>
+        <div >
+            <img src="img/tr10.jpeg" class="rounded-2xl  hover:scale-95 " alt="">
+            <h3 class="font-bold uppercase pt-2">miraggio</h3>
+            <p class="font-semibold">Solid Sling Bag</p>
+            <h1 class="font-bold">&#x20b9 2,400 <span class="font-normal"> MRP </span><span class="font-normal gap-1 line-through">&#x20b9 4,999</span> <span class="font-bold text-red-400">52% off</span></h1>
+        </div>
+        <div>
+            <img src="img/tr11.jpeg" class="rounded-2xl hover:scale-95 " alt="">
+            <h3 class="font-bold uppercase  pt-2">max</h3>
+            <p class="font-semibold">Boys Slip-On Outdoor Shoes</p>
+            <h1 class="font-bold">&#x20b9 1,099</h1>
+        </div>
+        <div>
+            <img src="img/tr12.jpeg" class="rounded-2xl  hover:scale-95 " alt="">
+            <h3 class="font-bold uppercase pt-2">thoilling</h3>
+            <p class="font-semibold">Girls Floral Print Fit & Flare Dress</p>
+            <h1 class="font-bold">&#x20b9 680 <span class="font-normal"> MRP </span><span class="font-normal gap-1 line-through">&#x20b9 2,000</span> <span class="font-bold text-red-400">66% off</span></h1>
+        </div>
+    </div>
+    <!-- MEN -->
+    <div class="flex justify-center items-center md:m-7 m-4 md:font-bold font-bold md:text-5xl uppercase underline text-red-400">
+        <h1>MEN</h1>
+       </div>
+    <div class="w-full rounded-xl">
+        <img src="img/MEN'S_FASHION.jpg" alt="" srcset="">
+    </div>
+
+    <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 mx-[10%] w-[80%] items-center gap-16 mt-7 ">
+        <div class="items-center">
+            <img src="img/men1.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">T-SHIRTS</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/men2.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">SHIRTS</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/men3.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">INDIAN WEAR</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/men4.jpeg" alt="" srcset="" class="w-[43%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700  cursor-pointer ">FORMAL WEAR</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/men5.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">BOTTOM WEAR</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/men6.jpeg" alt="" srcset="" class="w-[80%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl  text-sm uppercase pt-2 text-slate-700  cursor-pointer ">SHOES</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/men7.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">SUNGLASSES</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/men8.jpeg" alt="" srcset="" class="w-[60%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">WATCHES</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/men9.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">INNER WEAR</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/men10.jpeg" alt="" srcset="" class="w-[43%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700  cursor-pointer ">SPORTS WEAR</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/men11.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">BAGS</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/men12.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl  text-sm uppercase pt-2 text-slate-700  cursor-pointer ">BELTS & WALLETS</h1>
+        </div>
+    </div>
+    <!-- WOMEN -->
+    <div class="flex justify-center items-center md:m-7 m-4 md:font-bold font-bold md:text-5xl uppercase underline text-red-400">
+        <h1>WOMEN</h1>
+       </div>
+    <div class="w-full rounded-xl">
+        <img src="img/WOMEN'S_FASHION.jpg" alt="" srcset="">
+    </div>
+    <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 mx-[10%] w-[80%] items-center gap-16 mt-7 ">
+        <div class="items-center">
+            <img src="img/wm1.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">TOPS</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/WM2.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">KURTIS</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/WM3.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">BOTTOM WEAR</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/WM4.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700  cursor-pointer ">SAREES</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/WM5.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">DRESSES & JUMPSUITS</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/WM6.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl  text-sm uppercase pt-2 text-slate-700  cursor-pointer ">SPORTS WEAR</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/WM7.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">LINGERIE</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/WM8.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">FOOTWEAR</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/WM9.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">WATCHES</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/WM10.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700  cursor-pointer ">HANDBAGS & <BR> BAGS</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/WM11.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">JEWELLERYS</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/WM12.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl  text-sm uppercase pt-2 text-slate-700  cursor-pointer ">SUNGLASSES</h1>
+        </div>
+    </div>
+
+    <!-- KIDS -->
+    <div class="flex justify-center items-center md:m-7 m-4 md:font-bold font-bold md:text-5xl uppercase underline text-red-400">
+        <h1>KID'S</h1>
+       </div>
+    <div class="w-full rounded-xl">
+        <img src="img/KID'S_FASHION.jpg" alt="" srcset="">
+    </div>
+    <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 mx-[10%] w-[80%] items-center gap-16 mt-7 ">
+        <div class="items-center">
+            <img src="img/K1.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">BABY CLOTHING</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/K2.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">GIRLS CLOTHING</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/K3.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">BOYS CLOTHING</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/K4.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700  cursor-pointer ">TEENS</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/K5.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">WINTER WEAR</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/K6.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl  text-sm uppercase pt-2 text-slate-700  cursor-pointer ">T-SHIRTS</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/K7.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">FOOTWEAR</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/K8.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">WATCHES</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/K9.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">BACKPACKS</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/K10.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700  cursor-pointer ">DRESSES <BR> JUMPSUITS</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/K11.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl text-sm uppercase pt-2 text-slate-700   cursor-pointer ">BOTTOM WEAR</h1>
+        </div>
+        <div class="items-center">
+            <img src="img/K12.jpeg" alt="" srcset="" class="w-[50%] broder rounded-2xl cursor-pointer hover:scale-95">
+            <h1 class="md:font-extrabold font-bold md:text-xl  text-sm uppercase pt-2 text-slate-700  cursor-pointer ">INNERWEAR</h1>
+        </div>
+    </div>
+    <!-- footer -->
+    <footer>
+        <div class="grid md:grid-cols-4 grid-cols-2 w-full md:p-9 p-4 mt-5 md:gap-5 md:text-base text-sm  bg-sky-950 h-[50%] text-white">
+            <div >
+                <div class="font-bold mb-4 text-gray-300">ABOUT</div>
+                <ul >
+                    <li class="cursor-pointer hover:underline">Who We Are</li>
+                    <li class="cursor-pointer hover:underline">Join Our Team</li>
+                    <li class="cursor-pointer hover:underline">Terms & Conditions</li>
+                    <li class="cursor-pointer hover:underline">We Respect Your Privacy</li>
+                    <li class="cursor-pointer hover:underline">Fees & Payments</li>
+                    <li class="cursor-pointer hover:underline">Returns & Refunds Policy</li>
+                    <li class="cursor-pointer hover:underline">Promotions Terms & Conditions</li>
+                </ul>
+            </div>
+            <div>
+            <div class="font-bold mb-4 text-gray-300 uppercase">categories</div>
+            <ul>
+                <li class="cursor-pointer hover:underline uppercase">New Arrivals</li>
+                <li class="cursor-pointer hover:underline uppercase">Tranding</li>
+                <li class="cursor-pointer hover:underline uppercase">Top Rated</li>
+                <li class="cursor-pointer hover:underline uppercase">men</li>
+                <li class="cursor-pointer hover:underline uppercase">Women</li>
+                <li class="cursor-pointer hover:underline uppercase">kids</li>
+            </ul>
+        </div>
+        <div>
+            <div class="font-bold mb-4 text-gray-300 uppercase">Help</div>
+            <ul>
+                <li class="cursor-pointer hover:underline uppercase">Track Your Order</li>
+                <li class="cursor-pointer hover:underline uppercase">Frequently Asked Questions</li>
+                <li class="cursor-pointer hover:underline uppercase">Returns</li>
+                <li class="cursor-pointer hover:underline uppercase">Payments</li>
+                <li class="cursor-pointer hover:underline uppercase">Customer Care</li>
+                <li class="cursor-pointer hover:underline uppercase">How Do I Redeem My Coupon</li>
+            </ul>
+        </div>
+
+        <div>
+            <div class="font-bold mb-4 text-gray-300 uppercase">Connect with Us
+                </div>
+            <ul>
+                <li class="cursor-pointer hover:underline uppercase">Facebook</li>
+                <li class="cursor-pointer hover:underline uppercase">Twitter</li>
+                <li class="cursor-pointer hover:underline uppercase">Instagram</li>
+            </ul>
+        </div>
+    </div>
+    </footer>
+</body>
+
+</html>
+
+
